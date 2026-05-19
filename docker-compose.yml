@@ -1,0 +1,82 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: affiliate-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      - affiliate-net
+
+  affiliate-service:
+    build: ./affiliate-service
+    container_name: affiliate-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/affiliate_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=30000
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - affiliate-net
+
+  campaign-service:
+    build: ./campaign-service
+    container_name: campaign-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      affiliate-service:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/campaign_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=30000
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVICE_AFFILIATE_SERVICE_URL=http://affiliate-service:8081
+    networks:
+      - affiliate-net
+
+  conversion-service:
+    build: ./conversion-service
+    container_name: conversion-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      affiliate-service:
+        condition: service_started
+      campaign-service:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/conversion_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=30000
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVICE_AFFILIATE-SERVICE_URL=http://affiliate-service:8081
+      - SERVICE_CAMPAIGN-SERVICE_URL=http://campaign-service:8082
+    networks:
+      - affiliate-net
+
+volumes:
+  mysql_data:
+
+networks:
+  affiliate-net:
+    driver: bridge

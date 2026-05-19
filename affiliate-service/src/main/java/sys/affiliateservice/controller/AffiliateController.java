@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sys.affiliateservice.model.Affiliate;
 import sys.affiliateservice.service.AffiliateService;
+import sys.affiliateservice.service.dto.AffiliateResponse;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class AffiliateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Affiliate> getAffById(@PathVariable Long id){
+    public ResponseEntity<AffiliateResponse> getAffById(@PathVariable Long id){
         return ResponseEntity.ok(affiliateService.getAffiliateById(id));
     }
 

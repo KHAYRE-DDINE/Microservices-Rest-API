@@ -40,7 +40,7 @@ public class ConversionService {
     public ConversionResponseDTO recordConversion(ConversionRequestDTO request) {
         // 1. Validate Affiliate
         AffiliateRefDTO affiliate = affiliateRestClient.get()
-                .uri("/api/affiliates/{id}", request.getAffiliateId())
+                .uri("/api/affiliate/{id}", request.getAffiliateId())
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, (req, res) -> {
                     throw new ConversionValidationException("Affiliate not found or inactive: " + request.getAffiliateId());

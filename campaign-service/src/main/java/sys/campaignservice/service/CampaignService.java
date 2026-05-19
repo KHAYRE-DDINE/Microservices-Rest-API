@@ -33,6 +33,12 @@ public class CampaignService {
         return toResponseDTO(campaign);
     }
 
+    public List<CampaignResponseDTO> getCampaignByAffiliateId(Long AffiliateId){
+        return campaignRepository.findByAffiliateId(AffiliateId).stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     public List<CampaignResponseDTO> getActiveCampaigns() {
         return campaignRepository.findByActiveTrue().stream()
                 .map(this::toResponseDTO)
@@ -45,6 +51,7 @@ public class CampaignService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .commissionRate(request.getCommissionRate())
+                .affiliateId(request.getAffiliateId())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .active(request.getActive() != null ? request.getActive() : true)
@@ -64,6 +71,7 @@ public class CampaignService {
         existing.setCommissionRate(request.getCommissionRate());
         existing.setStartDate(request.getStartDate());
         existing.setEndDate(request.getEndDate());
+        existing.setAffiliateId(request.getAffiliateId());
         if (request.getActive() != null) existing.setActive(request.getActive());
 
         Campaign updated = campaignRepository.save(existing);
@@ -89,6 +97,7 @@ public class CampaignService {
                 .endDate(c.getEndDate())
                 .createdAt(c.getCreatedAt())
                 .updatedAt(c.getUpdatedAt())
+                .affiliateId(c.getAffiliateId())
                 .build();
     }
 }

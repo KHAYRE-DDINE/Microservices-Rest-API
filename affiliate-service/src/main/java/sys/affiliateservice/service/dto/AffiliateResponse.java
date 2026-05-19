@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AffiliateResponse {
+    private List<CampaignDTO> campaigns;
 
     private String id;
     private String name;
@@ -25,9 +27,9 @@ public class AffiliateResponse {
     private Double totalEarned;
     private int totalconversions;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH-mm-ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH-mm-ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime updatedAt;
 }

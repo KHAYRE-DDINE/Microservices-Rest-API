@@ -7,13 +7,15 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.time.LocalDateTime;
+
 
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDate timestamp;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime timestamp;
     private int status;
     private String error;
     private Map<String, String> details;

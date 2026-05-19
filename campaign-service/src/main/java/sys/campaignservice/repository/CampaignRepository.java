@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface CampaignRepository extends JpaRepository<Campaign, Long> {
     Optional<Campaign> findByIdAndActiveTrue(Long id);
 
+    List<Campaign> findByAffiliateId(Long affiliateId);
     List<Campaign> findByActiveTrue();
 
     @Query("SELECT c FROM Campaign c WHERE c.active = true AND (c.startDate IS NULL OR c.startDate <= :now) AND (c.endDate IS NULL OR c.endDate >= :now)")

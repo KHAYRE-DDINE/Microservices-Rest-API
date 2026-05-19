@@ -73,4 +73,9 @@ public class CampaignController {
         campaignService.deleteCampaign(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/affiliate/{affiliateId}")
+    public ResponseEntity<List<CampaignResponseDTO>> getByAffiliateId(@PathVariable Long affId){
+        return ResponseEntity.ok(campaignService.getCampaignByAffiliateId(affId));
+    }
 }

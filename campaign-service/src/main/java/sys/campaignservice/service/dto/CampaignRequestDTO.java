@@ -20,6 +20,7 @@ public class CampaignRequestDTO {
     @NotBlank(message = "The field required")
     @Size(min = 3, max = 20, message = "The length of letters allowed is 20")
     private String name;
+    private Long affiliateId;
 
     @Size(max = 300, message = "Don't pass 300 letter")
     private String description;

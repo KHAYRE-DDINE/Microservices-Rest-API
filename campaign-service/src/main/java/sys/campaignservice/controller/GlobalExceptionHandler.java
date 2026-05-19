@@ -12,6 +12,7 @@ import sys.campaignservice.exception.ApiError;
 import sys.campaignservice.exception.CampaignNotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class GlobalExceptionHandler {
         });
 
         ApiError apiErr = ApiError.builder()
-                .timestamp(LocalDate.now())
+                .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Bad Request")
                 .message("Validation Failed")
@@ -53,7 +54,7 @@ public class GlobalExceptionHandler {
     }
 
     public ResponseEntity<ApiError> buildError(HttpStatus status, String error, String message){
-        ApiError apiError = ApiError.builder().timestamp(LocalDate.now()).status(status.value())
+        ApiError apiError = ApiError.builder().timestamp(LocalDateTime.now()).status(status.value())
                 .message(message).error(error).build();
 
         return ResponseEntity.status(status).body(apiError);

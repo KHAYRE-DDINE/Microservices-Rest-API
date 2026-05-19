@@ -32,6 +32,9 @@ public class Campaign {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "affiliate_id")
+    private Long affiliateId;
+
     @NotBlank(message = "The name field required")
     @Size(min = 3, max = 20, message = "Only 20 letters allowed")
     @Column(name = "name", length = 20)

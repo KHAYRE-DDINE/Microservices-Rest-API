@@ -1,6 +1,6 @@
-package sys.campaignservice.service.dto;
+package sys.affiliateservice.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,25 +10,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CampaignResponseDTO {
-    private Long affiliateId;
+@Builder
+public class CampaignDTO {
     private Long id;
     private String name;
     private String description;
     private BigDecimal commissionRate;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdAt;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate updatedAt;
-
     private Boolean active;
-
 }
