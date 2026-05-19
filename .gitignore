@@ -1,0 +1,65 @@
+﻿# Dependencies
+node_modules/
+.next/
+
+# IDE
+.idea/
+.vscode/
+
+# Logs and env
+*.log
+.env
+.DS_Store
+
+# Build files
+dist/
+build/
+*.tsbuildinfo
+
+# Java/Maven
+**/target/
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+*.class
+*.jar
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Backend specific
+backend/**/target/
+backend/**/.mvn/
+backend/**/mvnw
+backend/**/mvnw.cmd
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+Accept
+GET
+Host
+User-Agent
+curl.exe
+docker
